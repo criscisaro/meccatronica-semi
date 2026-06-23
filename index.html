@@ -47,7 +47,9 @@
   @keyframes fadeslide { 0%{opacity:0} 100%{opacity:1} }
   @keyframes pulsedot { 0%,100%{box-shadow:0 0 6px #FFB902, 0 0 2px #FFB902} 50%{box-shadow:0 0 14px #FFB902, 0 0 5px #FFB902} }
   @keyframes sweep { 0%{left:4px} 100%{left:calc(100% - 18px)} }
-  @keyframes hazardmove { to { background-position: 56.57px 0; } }
+  @keyframes cube { from{transform:rotateX(-24deg) rotateY(0)} to{transform:rotateX(-24deg) rotateY(360deg)} }
+  @keyframes sonar { 0%{transform:scale(.28);opacity:.85} 100%{transform:scale(1);opacity:0} }
+  @keyframes spinrev { to{transform:rotate(-360deg)} }
   html { overflow-x: hidden; }
   img { max-width: 100%; }
   @media (max-width: 900px) {
@@ -296,7 +298,16 @@
             <h3 style="font-family:'Poppins',sans-serif; font-size:clamp(24px,3vw,34px); font-weight:700; color:#23282f; margin:6px 0 12px;">Vendita & Prodotti</h3>
             <p style="font-size:16px; line-height:1.6; color:#67787e; margin:0;">Carrelli, transpallet, piattaforme, gas e attrezzature per la movimentazione, in vendita e a noleggio. Soluzioni su misura per industria e logistica.</p>
           </div>
-          <div style="width:120px; height:120px; border-radius:24px; display:flex; align-items:center; justify-content:center; flex-shrink:0; box-shadow:inset 5px 5px 12px #c8d0dc, inset -5px -5px 12px #ffffff;"><span style="width:16px; height:16px; border-radius:50%; background:#FFB902; animation:pulsedot 1.6s ease-in-out infinite;"></span></div>
+          <div style="width:140px; height:140px; border-radius:26px; display:flex; align-items:center; justify-content:center; flex-shrink:0; box-shadow:inset 5px 5px 12px #c8d0dc, inset -5px -5px 12px #ffffff; perspective:460px;">
+            <div style="position:relative; width:58px; height:58px; transform-style:preserve-3d; animation:cube 7s linear infinite;">
+              <div style="position:absolute; inset:0; background:#FFB902; border:2px solid #23282f; transform:translateZ(29px);"></div>
+              <div style="position:absolute; inset:0; background:#23282f; transform:rotateY(180deg) translateZ(29px);"></div>
+              <div style="position:absolute; inset:0; background:#ffce4d; border:2px solid #23282f; transform:rotateY(90deg) translateZ(29px);"></div>
+              <div style="position:absolute; inset:0; background:#23282f; transform:rotateY(-90deg) translateZ(29px);"></div>
+              <div style="position:absolute; inset:0; background:#FFB902; border:2px solid #23282f; transform:rotateX(90deg) translateZ(29px);"></div>
+              <div style="position:absolute; inset:0; background:#1c2026; transform:rotateX(-90deg) translateZ(29px);"></div>
+            </div>
+          </div>
         </div>
       </sc-if>
       <sc-if value="{{ is1 }}" hint-placeholder-val="{{ false }}">
@@ -307,7 +318,12 @@
             <p style="font-size:16px; line-height:1.6; color:#67787e; margin:0;">Portale dedicato per richieste di assistenza, storico degli interventi e gestione delle pratiche, sempre a portata di mano.</p>
             <a href="https://assistenza.meccatronicasemi.it/login.php" style="display:inline-block; margin-top:16px; font-size:14px; font-weight:700; color:#23282f; text-decoration:none;">Accedi all'area clienti &rarr;</a>
           </div>
-          <div style="width:120px; height:120px; border-radius:24px; display:flex; align-items:center; justify-content:center; flex-shrink:0; box-shadow:inset 5px 5px 12px #c8d0dc, inset -5px -5px 12px #ffffff;"><span style="width:16px; height:16px; border-radius:50%; background:#FFB902; animation:pulsedot 1.6s ease-in-out infinite;"></span></div>
+          <div style="width:140px; height:140px; border-radius:26px; display:flex; align-items:center; justify-content:center; flex-shrink:0; position:relative; box-shadow:inset 5px 5px 12px #c8d0dc, inset -5px -5px 12px #ffffff;">
+            <span style="position:absolute; inset:0; margin:auto; width:106px; height:106px; border-radius:50%; border:2.5px solid #FFB902; animation:sonar 2.4s ease-out infinite;"></span>
+            <span style="position:absolute; inset:0; margin:auto; width:106px; height:106px; border-radius:50%; border:2.5px solid #FFB902; animation:sonar 2.4s ease-out infinite; animation-delay:.8s;"></span>
+            <span style="position:absolute; inset:0; margin:auto; width:106px; height:106px; border-radius:50%; border:2.5px solid #FFB902; animation:sonar 2.4s ease-out infinite; animation-delay:1.6s;"></span>
+            <span style="position:relative; width:50px; height:50px; border-radius:50%; background:#23282f; display:flex; align-items:center; justify-content:center; box-shadow:0 0 16px rgba(255,185,2,.45);"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FFB902" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></span>
+          </div>
         </div>
       </sc-if>
       <sc-if value="{{ is2 }}" hint-placeholder-val="{{ false }}">
@@ -317,7 +333,10 @@
             <h3 style="font-family:'Poppins',sans-serif; font-size:clamp(24px,3vw,34px); font-weight:700; color:#23282f; margin:6px 0 12px;">Assistenza tecnica</h3>
             <p style="font-size:16px; line-height:1.6; color:#67787e; margin:0;">Tecnici qualificati e officine mobili per la manutenzione in loco, con riparazione di schede elettroniche e sistemi di controllo CNC industriali.</p>
           </div>
-          <div style="width:120px; height:120px; border-radius:24px; display:flex; align-items:center; justify-content:center; flex-shrink:0; box-shadow:inset 5px 5px 12px #c8d0dc, inset -5px -5px 12px #ffffff;"><span style="width:16px; height:16px; border-radius:50%; background:#FFB902; animation:pulsedot 1.6s ease-in-out infinite;"></span></div>
+          <div style="width:140px; height:140px; border-radius:26px; flex-shrink:0; position:relative; overflow:hidden; box-shadow:inset 5px 5px 12px #c8d0dc, inset -5px -5px 12px #ffffff;">
+            <div style="position:absolute; left:14px; top:16px; width:82px; height:82px; animation:spin 6s linear infinite;"><svg viewBox="0 0 100 100" style="width:100%; height:100%; display:block;"><g fill="#FFB902" stroke="#23282f" stroke-width="3" stroke-linejoin="round"><rect x="42" y="2" width="16" height="22" rx="3"/><rect x="42" y="2" width="16" height="22" rx="3" transform="rotate(45 50 50)"/><rect x="42" y="2" width="16" height="22" rx="3" transform="rotate(90 50 50)"/><rect x="42" y="2" width="16" height="22" rx="3" transform="rotate(135 50 50)"/><rect x="42" y="2" width="16" height="22" rx="3" transform="rotate(180 50 50)"/><rect x="42" y="2" width="16" height="22" rx="3" transform="rotate(225 50 50)"/><rect x="42" y="2" width="16" height="22" rx="3" transform="rotate(270 50 50)"/><rect x="42" y="2" width="16" height="22" rx="3" transform="rotate(315 50 50)"/><circle cx="50" cy="50" r="30"/></g><circle cx="50" cy="50" r="11" fill="#23282f"/></svg></div>
+            <div style="position:absolute; left:72px; top:62px; width:58px; height:58px; animation:spinrev 4.2s linear infinite;"><svg viewBox="0 0 100 100" style="width:100%; height:100%; display:block;"><g fill="#23282f" stroke="#FFB902" stroke-width="3" stroke-linejoin="round"><rect x="42" y="2" width="16" height="22" rx="3"/><rect x="42" y="2" width="16" height="22" rx="3" transform="rotate(45 50 50)"/><rect x="42" y="2" width="16" height="22" rx="3" transform="rotate(90 50 50)"/><rect x="42" y="2" width="16" height="22" rx="3" transform="rotate(135 50 50)"/><rect x="42" y="2" width="16" height="22" rx="3" transform="rotate(180 50 50)"/><rect x="42" y="2" width="16" height="22" rx="3" transform="rotate(225 50 50)"/><rect x="42" y="2" width="16" height="22" rx="3" transform="rotate(270 50 50)"/><rect x="42" y="2" width="16" height="22" rx="3" transform="rotate(315 50 50)"/><circle cx="50" cy="50" r="30"/></g><circle cx="50" cy="50" r="11" fill="#FFB902"/></svg></div>
+          </div>
         </div>
       </sc-if>
       <sc-if value="{{ is3 }}" hint-placeholder-val="{{ false }}">
@@ -327,7 +346,11 @@
             <h3 style="font-family:'Poppins',sans-serif; font-size:clamp(24px,3vw,34px); font-weight:700; color:#23282f; margin:6px 0 12px;">Noleggio</h3>
             <p style="font-size:16px; line-height:1.6; color:#67787e; margin:0;">Noleggio a breve e lungo termine con assistenza e manutenzione incluse e durata flessibile, pensato per ogni esigenza operativa.</p>
           </div>
-          <div style="width:120px; height:120px; border-radius:24px; display:flex; align-items:center; justify-content:center; flex-shrink:0; box-shadow:inset 5px 5px 12px #c8d0dc, inset -5px -5px 12px #ffffff;"><span style="width:16px; height:16px; border-radius:50%; background:#FFB902; animation:pulsedot 1.6s ease-in-out infinite;"></span></div>
+          <div style="width:140px; height:140px; border-radius:26px; display:flex; align-items:center; justify-content:center; flex-shrink:0; position:relative; box-shadow:inset 5px 5px 12px #c8d0dc, inset -5px -5px 12px #ffffff;">
+            <span style="position:absolute; inset:0; margin:auto; width:98px; height:98px; border-radius:50%; border:3px dashed #23282f; opacity:.45; animation:spin 9s linear infinite;"></span>
+            <span style="position:absolute; inset:0; margin:auto; width:104px; height:104px; animation:spin 3s linear infinite;"><span style="position:absolute; top:-3px; left:50%; transform:translateX(-50%); width:18px; height:18px; border-radius:50%; background:#FFB902; box-shadow:0 0 12px #FFB902;"></span></span>
+            <span style="position:relative; width:46px; height:46px; border-radius:50%; background:#23282f; display:flex; align-items:center; justify-content:center;"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#FFB902" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 15-6.7L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-15 6.7L3 16"/><path d="M3 21v-5h5"/></svg></span>
+          </div>
         </div>
       </sc-if>
       <div style="position:absolute; left:0; right:0; bottom:0; height:4px; background:#dfe4eb;"><div style="height:100%; background:#FFB902; animation:progress 2.5s linear infinite;"></div></div>
@@ -380,18 +403,6 @@
     </sc-if>
   </section>
 
-  <!-- BANDA HAZARD (caution stripe industriale · value prop) -->
-  <div style="max-width:1180px; margin:0 auto; padding:24px 24px;">
-    <div style="position:relative; border-radius:16px; overflow:hidden; padding:14px; display:flex; align-items:center; justify-content:center; box-shadow:7px 7px 16px #c8d0dc, -7px -7px 16px #ffffff;">
-      <div style="position:absolute; inset:0; background:repeating-linear-gradient(45deg, #FFB902 0 20px, #23282f 20px 40px); animation:hazardmove 1.5s linear infinite;"></div>
-      <div style="position:relative; display:flex; align-items:center; gap:13px; flex-wrap:nowrap; max-width:calc(100% - 10px); background:#e9ecf1; border-radius:12px; padding:11px 20px; box-shadow:5px 5px 12px rgba(40,45,55,0.30), -3px -3px 8px rgba(255,255,255,0.85);">
-        <span style="width:10px; height:10px; border-radius:50%; background:#FFB902; animation:pulsedot 1.4s ease-in-out infinite; flex-shrink:0;"></span>
-        <span style="min-width:0; font-family:'Poppins',sans-serif; font-size:12.5px; font-weight:700; letter-spacing:0.1em; line-height:1.5; text-transform:uppercase; color:#23282f; text-align:center;">Pronto intervento · Ricambi rapidi · Officine mobili in tutta la Sicilia</span>
-        <span style="width:10px; height:10px; border-radius:50%; background:#FFB902; animation:pulsedot 1.4s ease-in-out infinite; flex-shrink:0;"></span>
-      </div>
-    </div>
-  </div>
-
   <!-- FAQ -->
   <section id="faq" style="max-width:1180px; margin:0 auto; padding:40px 24px 60px;">
     <div style="text-align:center; margin-bottom:36px;">
@@ -429,7 +440,7 @@
           <span data-acc style="width:28px; height:4px; border-radius:2px; background:#c2cbd6; display:inline-block; transition:all 0.4s;"></span>
           <span style="font-family:'Poppins',sans-serif; font-weight:600; font-size:12.5px; letter-spacing:0.14em; color:#23282f; text-transform:uppercase;">Contatti</span>
         </div>
-        <h2 style="font-family:'Poppins',sans-serif; font-size:clamp(26px,3.2vw,38px); font-weight:700; letter-spacing:-0.01em; color:#23282f; margin:14px 0 16px;">Parliamo del tuo impianto</h2>
+        <h2 style="font-family:'Poppins',sans-serif; font-size:clamp(26px,3.2vw,38px); font-weight:700; letter-spacing:-0.01em; color:#23282f; margin:14px 0 16px;">Come possiamo esserti utili</h2>
         <div style="display:flex; flex-direction:column; gap:16px;">
           <a href="tel:+390932191061" style="display:flex; align-items:center; gap:14px; background:#e9ecf1; border-radius:16px; padding:16px 18px; text-decoration:none; box-shadow:5px 5px 12px #c8d0dc, -5px -5px 12px #ffffff;" style-active="box-shadow:inset 4px 4px 8px #c8d0dc, inset -4px -4px 8px #ffffff;"><span style="color:#23282f; font-size:18px;">&#9742;</span><span style="font-family:'Poppins',sans-serif; font-size:16px; font-weight:600; color:#23282f;">0932 191061</span></a>
           <a href="mailto:info@meccatronicasemi.it" style="display:flex; align-items:center; gap:14px; background:#e9ecf1; border-radius:16px; padding:16px 18px; text-decoration:none; box-shadow:5px 5px 12px #c8d0dc, -5px -5px 12px #ffffff;" style-active="box-shadow:inset 4px 4px 8px #c8d0dc, inset -4px -4px 8px #ffffff;"><span style="color:#23282f; font-size:18px;">&#9993;</span><span style="font-family:'Poppins',sans-serif; font-size:15px; font-weight:600; color:#23282f;">info@meccatronicasemi.it</span></a>
@@ -522,9 +533,9 @@
   </footer>
 
   <!-- WHATSAPP (in basso a sinistra) -->
-  <a href="https://wa.me/390932191061" target="_blank" rel="noopener" title="Scrivici su WhatsApp" style="position:fixed; left:24px; bottom:24px; z-index:60; display:flex; align-items:center; height:58px; width:58px; border-radius:29px; background:#25D366; box-shadow:6px 6px 14px #c0c9d6, -6px -6px 14px #ffffff; text-decoration:none; overflow:hidden; transition:width 0.25s;" style-hover="width:188px;">
-    <span style="flex-shrink:0; width:58px; height:58px; display:flex; align-items:center; justify-content:center;"><span style="display:block; width:26px; height:24px; background:#fff; border-radius:10px 10px 10px 2px;"></span></span>
-    <span style="font-family:'Poppins',sans-serif; font-size:14px; font-weight:700; color:#fff; white-space:nowrap; padding-right:22px;">WhatsApp</span>
+  <a href="https://wa.me/390932191061" target="_blank" rel="noopener" title="Scrivici su WhatsApp" style="position:fixed; left:24px; bottom:24px; z-index:60; display:flex; align-items:center; height:58px; width:58px; border-radius:29px; background:#FFB902; box-shadow:6px 6px 14px #c0c9d6, -6px -6px 14px #ffffff; text-decoration:none; overflow:hidden; transition:width 0.25s;" style-hover="width:188px;">
+    <span style="flex-shrink:0; width:58px; height:58px; display:flex; align-items:center; justify-content:center;"><svg width="30" height="30" viewBox="0 0 32 32" fill="#23282f"><path d="M16 3C9.4 3 4 8.4 4 15c0 2.1.6 4.2 1.6 6L4 29l8.2-1.6c1.8.9 3.8 1.4 5.8 1.4 6.6 0 12-5.4 12-12S22.6 3 16 3zm0 21.8c-1.8 0-3.5-.5-5-1.3l-.4-.2-4.3.8.8-4.2-.3-.4C6 18.3 5.5 16.7 5.5 15 5.5 9.2 10.2 4.5 16 4.5S26.5 9.2 26.5 15 21.8 24.8 16 24.8z"/><path d="M21.5 17.6c-.3-.2-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.7 1-.9 1.1-.2.2-.3.2-.6.1-1.8-.9-3-1.6-4.2-3.6-.3-.5.3-.5.8-1.6.1-.2 0-.4 0-.5 0-.1-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.2.2 2.1 3.2 5.1 4.5 1.9.8 2.6.9 3.5.8.6-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.2-.3-.2-.6-.3z"/></svg></span>
+    <span style="font-family:'Poppins',sans-serif; font-size:14px; font-weight:700; color:#23282f; white-space:nowrap; padding-right:22px;">WhatsApp</span>
   </a>
 
   <!-- BACK TO TOP -->
