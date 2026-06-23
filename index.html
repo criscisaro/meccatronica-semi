@@ -57,9 +57,8 @@
   @media (max-width: 760px) {
     [data-r="faqgrid"] { grid-template-columns: 1fr !important; }
     [data-r="footgrid"] { grid-template-columns: 1fr !important; gap: 28px !important; }
-    [data-r="navhide"] { display: none !important; }
-    [data-r="nav"] { gap: 3px !important; }
-    [data-r="nav"] a, [data-r="nav"] button { padding: 8px 10px !important; font-size: 13px !important; }
+    [data-r="nav"] { display: none !important; }
+    [data-r="burger"] { display: flex !important; }
     [data-r="slide"] { flex-direction: column !important; align-items: flex-start !important; gap: 14px !important; padding: 28px 26px !important; }
     [data-r="slide"] > div:last-child { display: none !important; }
     [data-r="slidewrap"] { min-height: 350px !important; }
@@ -181,7 +180,22 @@
         <a href="https://assistenza.meccatronicasemi.it/login.php" data-r="navhide" style="display:flex; align-items:center; gap:7px; font-size:13.5px; font-weight:700; color:#1c6f5c; text-decoration:none; padding:9px 15px; border-radius:11px; background:#e9ecf1; box-shadow:inset 2px 2px 5px #c8d0dc, inset -2px -2px 5px #ffffff;" style-hover="color:#19614f;"><span style="font-size:11px;">&#128274;</span>Area clienti</a>
         <button onClick="{{ openGeneralQuote }}" style="margin-left:6px; font-family:'Poppins',sans-serif; font-size:14px; font-weight:700; color:#fff; background:#1c6f5c; border:none; cursor:pointer; padding:11px 20px; border-radius:13px; box-shadow:5px 5px 12px #c8d0dc, -5px -5px 12px #ffffff;" style-hover="background:#19614f;">Preventivo</button>
       </nav>
+      <button data-r="burger" onClick="{{ toggleNav }}" aria-label="Apri menu" style="display:none; width:46px; height:46px; flex-shrink:0; align-items:center; justify-content:center; flex-direction:column; gap:5px; background:#e9ecf1; border:none; border-radius:13px; cursor:pointer; box-shadow:5px 5px 12px #c8d0dc, -5px -5px 12px #ffffff;" style-active="box-shadow:inset 4px 4px 8px #c8d0dc, inset -4px -4px 8px #ffffff;">
+        <span style="display:block; width:20px; height:2.5px; border-radius:2px; background:#1c5346;"></span>
+        <span style="display:block; width:20px; height:2.5px; border-radius:2px; background:#1c5346;"></span>
+        <span style="display:block; width:20px; height:2.5px; border-radius:2px; background:#1c5346;"></span>
+      </button>
     </div>
+    <sc-if value="{{ navOpen }}" hint-placeholder-val="{{ false }}">
+      <div data-r="mobilemenu" style="max-width:1180px; margin:10px auto 0; background:#e9ecf1; border-radius:18px; padding:10px; display:flex; flex-direction:column; gap:4px; box-shadow:6px 6px 14px #c8d0dc, -6px -6px 14px #ffffff;">
+        <a href="#prodotti" onClick="{{ closeNav }}" style="font-size:15px; font-weight:600; color:#5d6e74; text-decoration:none; padding:13px 16px; border-radius:12px;">Prodotti</a>
+        <a href="#soluzioni" onClick="{{ closeNav }}" style="font-size:15px; font-weight:600; color:#5d6e74; text-decoration:none; padding:13px 16px; border-radius:12px;">Soluzioni</a>
+        <a href="#faq" onClick="{{ closeNav }}" style="font-size:15px; font-weight:600; color:#5d6e74; text-decoration:none; padding:13px 16px; border-radius:12px;">FAQ</a>
+        <a href="#contatti" onClick="{{ closeNav }}" style="font-size:15px; font-weight:600; color:#5d6e74; text-decoration:none; padding:13px 16px; border-radius:12px;">Contatti</a>
+        <a href="https://assistenza.meccatronicasemi.it/login.php" onClick="{{ closeNav }}" style="display:flex; align-items:center; gap:8px; font-size:15px; font-weight:700; color:#1c6f5c; text-decoration:none; padding:13px 16px; border-radius:12px;"><span style="font-size:12px;">&#128274;</span>Area clienti</a>
+        <button onClick="{{ openGeneralQuote }}" style="margin-top:4px; font-family:'Poppins',sans-serif; font-size:15px; font-weight:700; color:#fff; background:#1c6f5c; border:none; cursor:pointer; padding:14px; border-radius:13px;">Preventivo</button>
+      </div>
+    </sc-if>
   </header>
 
   <!-- HERO -->
@@ -561,8 +575,19 @@
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script>
+const _ico = (b) => 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 220" fill="none" stroke="#1c6f5c" stroke-width="9" stroke-linecap="round" stroke-linejoin="round">' + b + '</svg>');
+const _ICONS = {
+  forklift: _ico('<path d="M104 56v100"/><path d="M104 150H56"/><path d="M126 104h84v50h-84"/><path d="M126 104V76h90v78"/><circle cx="140" cy="172" r="12"/><circle cx="196" cy="172" r="12"/>'),
+  pallet: _ico('<path d="M84 130h152v22H84z"/><path d="M104 152v16M160 152v16M216 152v16"/><path d="M92 184h136"/><path d="M118 130V92h84v38"/>'),
+  lift: _ico('<path d="M80 54h160"/><path d="M80 78V54M240 78V54"/><path d="M80 78h160"/><path d="M104 80l112 80"/><path d="M216 80L104 160"/><path d="M88 160h144"/><circle cx="108" cy="176" r="11"/><circle cx="212" cy="176" r="11"/>'),
+  boxes: _ico('<path d="M72 116h78v62H72z"/><path d="M111 116v62"/><path d="M158 138h82v40h-82z"/><path d="M199 138v40"/><path d="M104 72h74v44h-74z"/><path d="M141 72v44"/>'),
+  gastech: _ico('<rect x="110" y="70" width="46" height="100" rx="22"/><path d="M133 70V52"/><path d="M122 52h22"/><path d="M204 168c-16-4-24-24-10-44 0 9 6 12 8 20 3-7 2-15 0-22 18 10 22 34 2 46z"/>'),
+  gasfood: _ico('<rect x="110" y="70" width="46" height="100" rx="22"/><path d="M133 70V52"/><path d="M122 52h22"/><path d="M188 170c0-30 22-52 52-52 0 30-22 52-52 52z"/><path d="M200 158q22-16 32-34"/>'),
+  chip: _ico('<rect x="116" y="76" width="88" height="88" rx="6"/><rect x="138" y="98" width="44" height="44" rx="4"/><path d="M136 76V60M160 76V60M184 76V60"/><path d="M136 164v16M160 164v16M184 164v16"/><path d="M116 98h-16M116 120h-16M116 142h-16"/><path d="M204 98h16M204 120h16M204 142h16"/>'),
+  gear: _ico('<circle cx="160" cy="110" r="48"/><circle cx="160" cy="110" r="16"/><path d="M160 62V46M160 158v16M208 110h16M112 110H96M194 76l11-11M126 144l-11 11M194 144l11 11M126 76l-11-11"/>')
+};
 class Component extends DCLogic {
-  state = { cookieOk: true, openFaq: -1, quoteFor: null, sent: false, query: '', slide: 0, tw: '', meter: 0, showTop: false, likes: {} };
+  state = { cookieOk: true, openFaq: -1, quoteFor: null, sent: false, query: '', slide: 0, tw: '', meter: 0, showTop: false, likes: {}, navOpen: false };
 
   componentDidMount() {
     try { this.setState({ cookieOk: !!localStorage.getItem('ms_cookie_p4_v2') }); } catch (e) {}
@@ -623,14 +648,14 @@ class Component extends DCLogic {
     const self = this;
 
     const prod = [
-      { name: 'Carrelli elevatori', desc: 'Vendita, noleggio e assistenza multimarca per ogni portata.', img: 'https://loremflickr.com/640/440/forklift?lock=31' },
-      { name: 'Transpallet', desc: 'Manuali ed elettrici per la movimentazione quotidiana.', img: 'https://loremflickr.com/640/440/warehouse?lock=22' },
-      { name: 'Piattaforme aeree', desc: 'Lavoro in quota in piena sicurezza.', img: 'https://loremflickr.com/640/440/crane?lock=33' },
-      { name: 'Intralogistica', desc: 'Attrezzature e soluzioni per il magazzino.', img: 'https://loremflickr.com/640/440/logistics?lock=24' },
-      { name: 'Gas tecnici industriali', desc: 'Gas per saldatura e uso industriale, in bombole.', img: 'https://loremflickr.com/640/440/welding?lock=25' },
-      { name: 'Gas alimentari', desc: 'Atmosfera protetta per alimenti, birre e carni.', img: 'https://loremflickr.com/640/440/brewery?lock=26' },
-      { name: 'Riparazione schede elettroniche', desc: 'Revisione e collaudo di schede e centraline.', img: 'https://loremflickr.com/640/440/electronics?lock=27' },
-      { name: 'Sistemi CNC industriali', desc: 'Riparazione di sistemi di controllo CNC.', img: 'https://loremflickr.com/640/440/lathe?lock=28' }
+      { name: 'Carrelli elevatori', desc: 'Vendita, noleggio e assistenza multimarca per ogni portata.', img: _ICONS.forklift },
+      { name: 'Transpallet', desc: 'Manuali ed elettrici per la movimentazione quotidiana.', img: _ICONS.pallet },
+      { name: 'Piattaforme aeree', desc: 'Lavoro in quota in piena sicurezza.', img: _ICONS.lift },
+      { name: 'Intralogistica', desc: 'Attrezzature e soluzioni per il magazzino.', img: _ICONS.boxes },
+      { name: 'Gas tecnici industriali', desc: 'Gas per saldatura e uso industriale, in bombole.', img: _ICONS.gastech },
+      { name: 'Gas alimentari', desc: 'Atmosfera protetta per alimenti, birre e carni.', img: _ICONS.gasfood },
+      { name: 'Riparazione schede elettroniche', desc: 'Revisione e collaudo di schede e centraline.', img: _ICONS.chip },
+      { name: 'Sistemi CNC industriali', desc: 'Riparazione di sistemi di controllo CNC.', img: _ICONS.gear }
     ];
     const q = (this.state.query || '').trim().toLowerCase();
     const filtered = q ? prod.filter(p => (p.name + ' ' + p.desc).toLowerCase().includes(q)) : prod;
@@ -679,7 +704,10 @@ class Component extends DCLogic {
       acceptCookie: () => { try { localStorage.setItem('ms_cookie_p4_v2', '1'); } catch (e) {} self.setState({ cookieOk: true }); },
       hasQuote: !!this.state.quoteFor,
       quoteFor: this.state.quoteFor,
-      openGeneralQuote: () => self.setState({ quoteFor: 'Preventivo personalizzato', sent: false }),
+      openGeneralQuote: () => self.setState({ quoteFor: 'Preventivo personalizzato', sent: false, navOpen: false }),
+      navOpen: this.state.navOpen,
+      toggleNav: () => self.setState(s => ({ navOpen: !s.navOpen })),
+      closeNav: () => self.setState({ navOpen: false }),
       closeQuote: () => self.setState({ quoteFor: null, sent: false }),
       sent: this.state.sent,
       submitQuote: (e) => { e.preventDefault(); self.setState({ sent: true }); },
